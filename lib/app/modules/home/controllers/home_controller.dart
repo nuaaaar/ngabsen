@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:ngabsen/app/data/models/user_model.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
+  User user = User();
+  bool isLoading = true;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    getUserFromStorage();
   }
 
   @override
@@ -16,5 +20,12 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+
+  void getUserFromStorage() async{
+    final GetStorage box = GetStorage();
+    user = await box.read('user');
+    isLoading = false;
+
+    update();
+  }
 }
