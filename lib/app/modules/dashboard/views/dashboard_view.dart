@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:ngabsen/app/core/theme/color_theme.dart';
+import 'package:ngabsen/app/modules/activity/controllers/activity_controller.dart';
 import 'package:ngabsen/app/modules/activity/views/activity_view.dart';
 import 'package:ngabsen/app/modules/home/views/home_view.dart';
 import 'package:ngabsen/app/modules/setting/views/setting_view.dart';
@@ -30,7 +31,7 @@ class DashboardView extends GetView<DashboardController> {
               _bottomNavigationBarItem(icon: Icons.home, label: 'Beranda'),
               _bottomNavigationBarItem(
                   icon: Icons.assignment_rounded, label: 'Riwayat Absensi'),
-              _bottomNavigationBarItem(icon: Icons.account_circle, label: 'Akun'),
+              _bottomNavigationBarItem(icon: Icons.settings, label: 'Pengaturan'),
             ],
           ),
         );

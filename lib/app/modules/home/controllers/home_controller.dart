@@ -22,6 +22,7 @@ class HomeController extends GetxController {
   void onClose() {}
 
   void getUserFromStorage() async{
+    isLoading = true;
     final GetStorage box = GetStorage();
     user = await box.read('user');
     isLoading = false;

@@ -95,7 +95,7 @@ class HomeView extends GetView<HomeController> {
                                                         FontWeight.w600),
                                           ),
                                           Text(
-                                            "00:00",
+                                            "--:--",
                                             style: CustomTextTheme.subtitle2
                                                 .copyWith(
                                                     color: CustomColorTheme
@@ -120,7 +120,7 @@ class HomeView extends GetView<HomeController> {
                                                         FontWeight.w600),
                                           ),
                                           Text(
-                                            "00:00",
+                                            "--:--",
                                             style: CustomTextTheme.subtitle2
                                                 .copyWith(
                                                     color: CustomColorTheme

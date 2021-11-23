@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ngabsen/app/core/values/strings.dart';
 import 'package:ngabsen/app/data/models/user_model.dart';
-import 'package:ngabsen/app/modules/home/views/home_view.dart';
 
 class LoginController extends GetxController {
   //TODO: Implement LoginController
@@ -26,8 +25,6 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {
-    usernameController.dispose();
-    passwordController.dispose();
   }
 
   void toggleObscureText() {
