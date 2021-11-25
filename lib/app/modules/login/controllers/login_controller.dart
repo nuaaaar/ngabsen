@@ -48,7 +48,7 @@ class LoginController extends GetxController {
         GetStorage box = GetStorage();
         box.write('user', User.fromJson(responseBody['user']));
         box.write('user_token', responseBody['user_token']);
-        Get.toNamed('/dashboard');
+        Get.offNamed('/dashboard');
       }else{
         Get.snackbar(
             'Kesalahan',

@@ -45,47 +45,54 @@ class SettingView extends GetView<SettingController> {
                                   style: CustomTextTheme.subtitle2.copyWith(
                                       color: CustomColorTheme.greyColor),
                                 )),
-                            Container(
-                              color: Colors.white,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(16),
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                        color: CustomColorTheme.whiteGreyColor,
-                                        width: 1,
-                                      )),
+                            GestureDetector(
+                              onTap: () => Get.toNamed("/privacy-policy"),
+                              child: Container(
+                                color: Colors.white,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.all(16),
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                          color:
+                                              CustomColorTheme.whiteGreyColor,
+                                          width: 1,
+                                        )),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Kebijakan Privasi",
+                                            style: CustomTextTheme.bodyText1,
+                                          ),
+                                          Icon(Icons.chevron_right_rounded)
+                                        ],
+                                      ),
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Kebijakan Privasi",
-                                          style: CustomTextTheme.bodyText1,
+                                    GestureDetector(
+                                      onTap: () => Get.toNamed('/terms-conditions'),
+                                      child: Container(
+                                        padding: EdgeInsets.all(16),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Syarat & Ketentuan",
+                                              style: CustomTextTheme.bodyText1,
+                                            ),
+                                            Icon(Icons.chevron_right_rounded)
+                                          ],
                                         ),
-                                        Icon(Icons.chevron_right_rounded)
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.all(16),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Syarat & Ketentuan",
-                                          style: CustomTextTheme.bodyText1,
-                                        ),
-                                        Icon(Icons.chevron_right_rounded)
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                             Container(

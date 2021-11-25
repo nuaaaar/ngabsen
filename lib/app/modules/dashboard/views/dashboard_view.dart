@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:ngabsen/app/core/theme/color_theme.dart';
 import 'package:ngabsen/app/modules/activity/controllers/activity_controller.dart';
 import 'package:ngabsen/app/modules/activity/views/activity_view.dart';
+import 'package:ngabsen/app/modules/attendance/views/attendance_view.dart';
 import 'package:ngabsen/app/modules/home/views/home_view.dart';
 import 'package:ngabsen/app/modules/setting/views/setting_view.dart';
 
@@ -19,7 +20,7 @@ class DashboardView extends GetView<DashboardController> {
           body: SafeArea(
             child: IndexedStack(
               index: controller.tabIndex,
-              children: [HomeView(), ActivityView(), SettingView()],
+              children: [HomeView(), AttendanceView(), ActivityView(), SettingView()],
             ),
           ),
           bottomNavigationBar: BottomNavigationBar(
@@ -31,6 +32,8 @@ class DashboardView extends GetView<DashboardController> {
               _bottomNavigationBarItem(icon: Icons.home, label: 'Beranda'),
               _bottomNavigationBarItem(
                   icon: Icons.assignment_rounded, label: 'Riwayat Absensi'),
+              _bottomNavigationBarItem(
+                  icon: Icons.task_alt_rounded, label: 'Riwayat Aktivitas'),
               _bottomNavigationBarItem(icon: Icons.settings, label: 'Pengaturan'),
             ],
           ),

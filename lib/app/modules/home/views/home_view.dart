@@ -95,7 +95,7 @@ class HomeView extends GetView<HomeController> {
                                                         FontWeight.w600),
                                           ),
                                           Text(
-                                            "--:--",
+                                            controller.checkInUser,
                                             style: CustomTextTheme.subtitle2
                                                 .copyWith(
                                                     color: CustomColorTheme
@@ -120,7 +120,7 @@ class HomeView extends GetView<HomeController> {
                                                         FontWeight.w600),
                                           ),
                                           Text(
-                                            "--:--",
+                                            controller.checkOutUser,
                                             style: CustomTextTheme.subtitle2
                                                 .copyWith(
                                                     color: CustomColorTheme
@@ -147,137 +147,149 @@ class HomeView extends GetView<HomeController> {
                                   style: CustomTextTheme.subtitle2,
                                 ),
                                 SizedBox(height: 10),
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.3),
-                                          spreadRadius: 1,
-                                          blurRadius: 5,
-                                        ),
-                                      ]),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Image.asset(
-                                            "assets/images/check-in.png",
-                                            width: 64,
+                                GestureDetector(
+                                  onTap: () {
+                                    if (controller.checkInState == 'ready') {
+                                      Get.toNamed("/check-in");                                    
+                                    }
+                                    print(controller.checkInState);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.3),
+                                            spreadRadius: 1,
+                                            blurRadius: 5,
                                           ),
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 12),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Check In",
-                                                  style: CustomTextTheme
-                                                      .bodyText1
-                                                      .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.w700),
-                                                ),
-                                                Text(
-                                                  "Presensi mulai jam kerja",
-                                                  style: CustomTextTheme.caption
-                                                      .copyWith(
-                                                          color:
-                                                              CustomColorTheme
-                                                                  .greyColor),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.only(right: 12),
-                                        child: Column(
+                                        ]),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Row(
                                           children: [
-                                            Icon(
-                                              Icons.error_outline,
-                                              color: CustomColorTheme.greyColor,
+                                            Image.asset(
+                                              "assets/images/check-in.png",
+                                              width: 64,
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 12),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Check In",
+                                                    style: CustomTextTheme
+                                                        .bodyText1
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w700),
+                                                  ),
+                                                  Text(
+                                                    controller.checkInText,
+                                                    style: CustomTextTheme
+                                                        .subtitle2
+                                                        .copyWith(
+                                                            color:
+                                                                CustomColorTheme
+                                                                    .greyColor),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
-                                      )
-                                    ],
+                                        Container(
+                                          padding: EdgeInsets.only(right: 12),
+                                          child: Column(
+                                            children: [
+                                              controller.checkInStateIcon,
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 SizedBox(height: 10),
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.3),
-                                          spreadRadius: 1,
-                                          blurRadius: 5,
-                                        ),
-                                      ]),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Image.asset(
-                                            "assets/images/check-out.png",
-                                            width: 64,
+                                GestureDetector(
+                                  onTap: () {
+                                    if (controller.checkOutState == 'ready') {
+                                      Get.toNamed("/check-out");                                 
+                                    }
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.all(Radius.circular(10)),
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.3),
+                                            spreadRadius: 1,
+                                            blurRadius: 5,
                                           ),
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 12),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Check Out",
-                                                  style: CustomTextTheme
-                                                      .bodyText1
-                                                      .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.w700),
-                                                ),
-                                                Text(
-                                                  "Presensi selesai jam kerja",
-                                                  style: CustomTextTheme.caption
-                                                      .copyWith(
-                                                          color:
-                                                              CustomColorTheme
-                                                                  .greyColor),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.only(right: 12),
-                                        child: Column(
+                                        ]),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Row(
                                           children: [
-                                            Icon(
-                                              Icons.error_outline,
-                                              color: CustomColorTheme.greyColor,
+                                            Image.asset(
+                                              "assets/images/check-out.png",
+                                              width: 64,
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 12),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Check Out",
+                                                    style: CustomTextTheme
+                                                        .bodyText1
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w700),
+                                                  ),
+                                                  Text(
+                                                    controller.checkOutText,
+                                                    style: CustomTextTheme
+                                                        .subtitle2
+                                                        .copyWith(
+                                                            color:
+                                                                CustomColorTheme
+                                                                    .greyColor),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
-                                      )
-                                    ],
+                                        Container(
+                                          padding: EdgeInsets.only(right: 12),
+                                          child: Column(
+                                            children: [
+                                              controller.checkOutStateIcon,
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 SizedBox(height: 10),
@@ -322,7 +334,8 @@ class HomeView extends GetView<HomeController> {
                                                 ),
                                                 Text(
                                                   "Hanya untuk keadaan darurat",
-                                                  style: CustomTextTheme.caption
+                                                  style: CustomTextTheme
+                                                      .subtitle2
                                                       .copyWith(
                                                           color:
                                                               CustomColorTheme
