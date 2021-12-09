@@ -1,12 +1,30 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:ngabsen/app/data/providers/user_provider.dart';
 
 class CheckOutController extends GetxController {
   //TODO: Implement CheckOutController
 
-  final count = 0.obs;
+  var image;
+  String userToken = '';
+  late TextEditingController activityController;
+
   @override
-  void onInit() {
+  void onInit() async{
     super.onInit();
+    activityController = TextEditingController();
+    var newUserToken = '';
+    var newUserNumpangToken = await UserProvider().getUserNumpangToken();
+    if (newUserNumpangToken  == '') {
+      newUserToken = await UserProvider().getUserToken();    
+    }else{
+      newUserToken = newUserNumpangToken;    
+    }
+    setNewUserToken(newUserToken);
+    update();
   }
 
   @override
@@ -16,5 +34,15 @@ class CheckOutController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+  
+  setNewImage(XFile newImage) {
+    image = File(newImage.path);
+    update();
+  }
+
+  setNewUserToken(newUserToken) {
+    userToken = newUserToken;
+    
+    update();
+  }
 }

@@ -1,12 +1,26 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:ngabsen/app/data/providers/user_provider.dart';
 
 class CheckInController extends GetxController {
   //TODO: Implement CheckInController
 
-  final count = 0.obs;
+  var image;
+  String userToken = '';
+
   @override
-  void onInit() {
-    super.onInit();
+  void onInit() async{
+    super.onInit();    
+    var newUserToken = '';
+    var newUserNumpangToken = await UserProvider().getUserNumpangToken();
+    if (newUserNumpangToken  == '') {
+      newUserToken = await UserProvider().getUserToken();    
+    }else{
+      newUserToken = newUserNumpangToken;    
+    }
+    setNewUserToken(newUserToken);
   }
 
   @override
@@ -16,5 +30,15 @@ class CheckInController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+
+  setNewImage(XFile newImage) {
+    image = File(newImage.path);
+    update();
+  }
+
+  setNewUserToken(newUserToken) {
+    userToken = newUserToken;
+    
+    update();
+  }
 }

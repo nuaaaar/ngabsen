@@ -15,6 +15,9 @@ abstract class Routes {
   static const PRIVACY_POLICY = _Paths.PRIVACY_POLICY;
   static const CHECK_IN = _Paths.CHECK_IN;
   static const CHECK_OUT = _Paths.CHECK_OUT;
+  static const PROFILE = _Paths.PROFILE;
+  static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
+  static const USER_NUMPANG = _Paths.USER_NUMPANG;
 }
 
 abstract class _Paths {
@@ -29,4 +32,7 @@ abstract class _Paths {
   static const PRIVACY_POLICY = '/privacy-policy';
   static const CHECK_IN = '/check-in';
   static const CHECK_OUT = '/check-out';
+  static const PROFILE = '/profile';
+  static const CHANGE_PASSWORD = '/change-password';
+  static const USER_NUMPANG = '/user-numpang';
 }

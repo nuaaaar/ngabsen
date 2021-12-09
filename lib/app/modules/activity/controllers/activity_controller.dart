@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ngabsen/app/data/models/attendance_model.dart';
+import 'package:ngabsen/app/data/models/activity_model.dart';
+import 'package:ngabsen/app/data/providers/activity_provider.dart';
 import 'package:ngabsen/app/data/providers/user_provider.dart';
 
 class ActivityController extends GetxController {
   //TODO: Implement ActivityController
 
-  List<Map<String, List<Attendance>>> attendances = [];
+  List<Activity> activities = [];
   var isLoading = true;
   String userToken = '';
 
@@ -14,6 +15,8 @@ class ActivityController extends GetxController {
   void onInit() async {
     super.onInit();
     userToken = await UserProvider().getUserToken();
+    var newActivities = await ActivityProvider().getActivities(userToken);
+    setNewActivities(newActivities);
   }
 
   @override
@@ -31,4 +34,10 @@ class ActivityController extends GetxController {
     userToken = await box.read('user_token');
   }
 
+  setNewActivities(newActivities)
+  {
+    activities = newActivities;
+    isLoading = false;
+    update();
+  }
 }

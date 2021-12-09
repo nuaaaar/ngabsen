@@ -1,9 +1,10 @@
 {
-    "id": 8,
+    "id": 1,
     "user_id": 2,
-    "status": "check out",
-    "image": "/app-assets/images/pages/not-authorized.png",
-    "date": "2021-11-24",
-    "created_at": "2021-11-24 17:00:00",
-    "updated_at": "2021-11-24 17:00:00"
+    "status": "check in",
+    "is_late": 0,
+    "image": "/storage/selfies/1638068441_02bd3aae-1426-4d62-84d6-5489c32ff24f2617155503146860815.jpg",
+    "date": "2021-11-28",
+    "created_at": "2021-11-28 11:00:41",
+    "updated_at": "2021-11-28 11:00:41"
 }

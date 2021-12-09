@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:ngabsen/app/data/providers/activity_provider.dart';
 import 'package:ngabsen/app/data/providers/attendance_provider.dart';
 import 'package:ngabsen/app/data/providers/attendance_setting_provider.dart';
 import 'package:ngabsen/app/data/providers/user_provider.dart';
@@ -35,17 +36,33 @@ class DashboardController extends GetxController {
     tabIndex = index;
     if (userToken != "") {
       if (index == 0) {
-        UserProvider().getUserFromApi(userToken).then((user) => homeController.setNewUser(user));
-        AttendanceSettingProvider().getAttendanceSettingFromApi().then((setting) => homeController.setNewAttendanceSetting(setting));
+        UserProvider()
+            .getUserFromApi(userToken)
+            .then((user) => homeController.setNewUser(user));
+        AttendanceSettingProvider()
+            .getAttendanceSettingFromApi()
+            .then((setting) => homeController.setNewAttendanceSetting(setting));
+        UserProvider().getUserNumpangToken().then((newUserNumpangToken) {
+          homeController.userNumpangToken = newUserNumpangToken;
+          if (newUserNumpangToken != '') {
+            UserProvider()
+                .getUserFromApi(newUserNumpangToken)
+                .then((newUserNumpang) {
+                  homeController.setNewUserNumpang(newUserNumpang);
+            });
+          }
+        });
       } else if (index == 1) {
         attendanceController.isLoading = true;
-        AttendanceProvider().getAttendanceLists(userToken).then((attendances) async{
-          await attendanceController.setNewAttendances(attendances);
-        });
+        AttendanceProvider().getAttendanceLists(userToken).then((attendances) =>
+            attendanceController.setNewAttendances(attendances));
+      } else if (index == 2) {
+        ActivityProvider().getActivities(userToken).then((newActivities) =>
+            activityController.setNewActivities(newActivities));
       }
-    }else {
-      settingController.logout();
-    } 
+    } else {
+      settingController.forceLogout();
+    }
     update();
   }
 }

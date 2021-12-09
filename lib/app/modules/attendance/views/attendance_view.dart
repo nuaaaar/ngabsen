@@ -39,14 +39,37 @@ class AttendanceView extends GetView<AttendanceController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [CircularProgressIndicator()],
                                 ))
-                              : ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: controller.attendances.length,
-                                  itemBuilder: (context, index) {
-                                    return _cardListView(
-                                        index, controller.attendances[index]);
-                                  },
-                                ),
+                              : controller.attendances.isEmpty
+                                  ? Center(
+                                      child: Container(
+                                        padding: EdgeInsets.all(16),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              "assets/images/check-in.png",
+                                              width: 200,
+                                            ),
+                                            Text(
+                                              "Belum ada riwayat absensi",
+                                              style: CustomTextTheme.bodyText2
+                                                  .copyWith(
+                                                      color: CustomColorTheme
+                                                          .greyColor),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  : ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: controller.attendances.length,
+                                      itemBuilder: (context, index) {
+                                        return _cardListView(index,
+                                            controller.attendances[index]);
+                                      },
+                                    ),
                         ),
                       )
                     ]);
@@ -59,18 +82,24 @@ class AttendanceView extends GetView<AttendanceController> {
     var timeFormatter = DateFormat('HH:mm');
     var timeCheckIn = '--:--';
     var timeCheckOut = '--:--';
+    int? isLate = 0;
     mapAttendanceLists.forEach((date, attendanceLists) {
       List<Attendance> formattedAttendanceLists = attendanceLists.toList();
       for (var attendance in formattedAttendanceLists) {
         if (attendance.status == 'check in') {
-          timeCheckIn = timeFormatter.format(DateTime.parse(attendance.createdAt.toString()));
-        }else{
-          timeCheckOut = timeFormatter.format(DateTime.parse(attendance.createdAt.toString()));
+          if (attendance.isLate is int) {
+            isLate = attendance.isLate;
+          }
+          timeCheckIn = timeFormatter
+              .format(DateTime.parse(attendance.createdAt.toString()));
+        } else {
+          timeCheckOut = timeFormatter
+              .format(DateTime.parse(attendance.createdAt.toString()));
         }
       }
     });
-    var date =
-        dateFormatter.format(DateTime.parse(mapAttendanceLists.keys.elementAt(0)));
+    var date = dateFormatter
+        .format(DateTime.parse(mapAttendanceLists.keys.elementAt(0)));
     return Container(
       margin: EdgeInsets.fromLTRB(16, index == 0 ? 16 : 0, 16, 16),
       child: Column(
@@ -119,7 +148,14 @@ class AttendanceView extends GetView<AttendanceController> {
                             "Presensi mulai jam kerja",
                             style: CustomTextTheme.caption
                                 .copyWith(color: CustomColorTheme.greyColor),
-                          )
+                          ),
+                          isLate == 1
+                              ? Text(
+                                  "(Terlambat)",
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 11),
+                                )
+                              : SizedBox(height: 0)
                         ],
                       ),
                     ),
@@ -129,7 +165,9 @@ class AttendanceView extends GetView<AttendanceController> {
                   padding: EdgeInsets.only(right: 12),
                   child: Column(
                     children: [
-                      Text(timeCheckIn),
+                      Text(
+                        timeCheckIn,
+                      ),
                     ],
                   ),
                 )
@@ -137,7 +175,7 @@ class AttendanceView extends GetView<AttendanceController> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 color: Colors.white,
@@ -172,7 +210,7 @@ class AttendanceView extends GetView<AttendanceController> {
                             "Presensi selesai jam kerja",
                             style: CustomTextTheme.caption
                                 .copyWith(color: CustomColorTheme.greyColor),
-                          )
+                          ),
                         ],
                       ),
                     ),

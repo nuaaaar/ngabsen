@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:ngabsen/app/core/theme/color_theme.dart';
 import 'package:ngabsen/app/core/theme/text_theme.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ngabsen/app/data/providers/attendance_provider.dart';
 import '../controllers/check_in_controller.dart';
 
 class CheckInView extends GetView<CheckInController> {
@@ -16,72 +17,96 @@ class CheckInView extends GetView<CheckInController> {
       appBar: AppBar(
         title: Text('Check In'),
         centerTitle: false,
+        backgroundColor: CustomColorTheme.primaryColor,
       ),
       body: Container(
         padding: EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 10),
-                child: Text(
-                  'Foto Selfie',
-                  style: CustomTextTheme.subtitle2,
-                ),
-              ),
-              DottedBorder(
-                color: CustomColorTheme.primaryColor,
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.only(bottom: 24),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/selfie.png',
-                        height: 256,
-                      ),
-                      Text('Silahkan ambil gambar')
-                    ],
+        child: GetBuilder<CheckInController>(
+          builder: (controller) {
+            return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      'Foto Selfie',
+                      style: CustomTextTheme.subtitle2,
+                    ),
                   ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 24),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: CustomColorTheme.primaryColor),
-                    borderRadius: BorderRadius.circular(14)),
-                child: TextButton(
-                  onPressed: () async{
-                    var file = await _picker.pickImage(source: ImageSource.camera);
-                  },
-                  child: Text(
-                    "Ambil Gambar",
-                    style: CustomTextTheme.button
-                        .copyWith(color: CustomColorTheme.primaryColor),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 24),
-                width: double.infinity,
-                decoration: BoxDecoration(
+                  DottedBorder(
                     color: CustomColorTheme.primaryColor,
-                    borderRadius: BorderRadius.circular(14)),
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Submit",
-                    style: CustomTextTheme.button.copyWith(color: Colors.white),
+                    child: Container(
+                      height: 256,
+                      width: double.infinity,
+                      child: controller.image == null
+                          ? Image.asset(
+                              'assets/images/selfie.png',
+                              fit: BoxFit.cover,
+                            )
+                          : Image.file(controller.image),
+                    ),
                   ),
-                ),
+                  Container(
+                    margin: EdgeInsets.only(top: 24),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border:
+                            Border.all(color: CustomColorTheme.primaryColor),
+                        borderRadius: BorderRadius.circular(14)),
+                    child: TextButton(
+                      onPressed: () async {
+                        var img =
+                            await _picker.pickImage(source: ImageSource.camera);
+                        if (img != null) {
+                          controller.setNewImage(img);
+                        }
+                      },
+                      child: Text(
+                        "Ambil Gambar",
+                        style: CustomTextTheme.button
+                            .copyWith(color: CustomColorTheme.primaryColor),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 24),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: CustomColorTheme.primaryColor,
+                        borderRadius: BorderRadius.circular(14)),
+                    child: TextButton(
+                      onPressed: () async {
+                        if (controller.image == null) {
+                          Get.snackbar(
+                            'Kesalahan',
+                            'Silahkan ambil foto selfie',
+                            duration: Duration(seconds: 2),
+                            backgroundColor: Colors.redAccent,
+                            colorText: Colors.white,
+                            snackPosition: SnackPosition.BOTTOM,
+                            padding: EdgeInsets.all(10),
+                            margin: EdgeInsets.all(24),
+                          );
+                        } else {
+                          await AttendanceProvider()
+                              .checkIn(controller.userToken, controller.image);
+
+                          Get.offAllNamed("/dashboard");
+                        }
+                      },
+                      child: Text(
+                        "Submit",
+                        style: CustomTextTheme.button
+                            .copyWith(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

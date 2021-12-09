@@ -75,16 +75,19 @@ class SettingView extends GetView<SettingController> {
                                       ),
                                     ),
                                     GestureDetector(
-                                      onTap: () => Get.toNamed('/terms-conditions'),
+                                      onTap: () =>
+                                          Get.toNamed('/terms-conditions'),
                                       child: Container(
                                         padding: EdgeInsets.all(16),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              "Syarat & Ketentuan",
-                                              style: CustomTextTheme.bodyText1,
+                                            Expanded(
+                                              child: Text(
+                                                "Syarat & Ketentuan",
+                                                style: CustomTextTheme.bodyText1,
+                                              ),
                                             ),
                                             Icon(Icons.chevron_right_rounded)
                                           ],
@@ -106,39 +109,50 @@ class SettingView extends GetView<SettingController> {
                               color: Colors.white,
                               child: Column(
                                 children: [
-                                  Container(
-                                    padding: EdgeInsets.all(16),
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                        color: CustomColorTheme.whiteGreyColor,
-                                        width: 1,
-                                      )),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Ubah Profil",
-                                          style: CustomTextTheme.bodyText1,
-                                        ),
-                                        Icon(Icons.chevron_right_rounded)
-                                      ],
+                                  GestureDetector(
+                                    onTap: () => Get.toNamed('/profile'),
+                                    child: Container(
+                                      padding: EdgeInsets.all(16),
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                          color:
+                                              CustomColorTheme.whiteGreyColor,
+                                          width: 1,
+                                        )),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              "Ubah Profil",
+                                              style: CustomTextTheme.bodyText1,
+                                            ),
+                                          ),
+                                          Icon(Icons.chevron_right_rounded)
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  Container(
-                                    padding: EdgeInsets.all(16),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Ubah Password",
-                                          style: CustomTextTheme.bodyText1,
-                                        ),
-                                        Icon(Icons.chevron_right_rounded)
-                                      ],
+                                  GestureDetector(
+                                    onTap: () => Get.toNamed('/change-password'),
+                                    child: Container(
+                                      padding: EdgeInsets.all(16),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              "Ubah Password",
+                                              style: CustomTextTheme.bodyText1,
+                                            ),
+                                          ),
+                                          Icon(Icons.chevron_right_rounded)
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -157,7 +171,7 @@ class SettingView extends GetView<SettingController> {
                             borderRadius: BorderRadius.circular(14)),
                         child: TextButton(
                             onPressed: () {
-                              controller.logout();
+                              controller.logout(context);
                             },
                             child: Text(
                               "Logout",

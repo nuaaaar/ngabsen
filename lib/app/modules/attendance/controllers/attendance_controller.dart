@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:ngabsen/app/data/models/attendance_model.dart';
+import 'package:ngabsen/app/data/models/attendance_setting_model.dart';
 import 'package:ngabsen/app/data/providers/attendance_provider.dart';
+import 'package:ngabsen/app/data/providers/attendance_setting_provider.dart';
 import 'package:ngabsen/app/data/providers/user_provider.dart';
 
 class AttendanceController extends GetxController {
@@ -10,14 +13,17 @@ class AttendanceController extends GetxController {
   var isLoading = true;
   String userToken = '';
 
+  String todayDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  DateFormat timeFormatter = DateFormat('HH:mm');
+  DateTime checkInEndTime = DateTime.now();
+
   @override
   void onInit() async {
     super.onInit();
     var newUserToken = await UserProvider().getUserToken();
-    setNewUserToken(newUserToken);
     var newAttendances = await AttendanceProvider().getAttendanceLists(newUserToken);
+    setNewUserToken(newUserToken);
     setNewAttendances(newAttendances);
-    print("Init halaman attendances");
     update();
   }
 
@@ -43,5 +49,13 @@ class AttendanceController extends GetxController {
 
     update();
     isLoading = false;
+  }
+
+  setNewAttendanceSetting(AttendanceSetting newAttendanceSetting) {
+    checkInEndTime = DateTime.parse(
+        todayDate + ' ' + newAttendanceSetting.checkInEnd.toString());
+
+    isLoading = false;
+    update();
   }
 }
